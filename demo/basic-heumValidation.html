@@ -1,0 +1,269 @@
+<!docType html>
+<html lang="ko">
+	<head>
+		<title>basic-heumValidation.html</title>
+		<meta charset="utf-8"/>
+		<script src="../resources/jquery/jquery-1.11.1.min.js"></script>
+		<link rel="stylesheet" href="../resources/jquery.heum.validation.css">
+		<script src="../resources/jquery.heum.validation.js"></script>
+		<style>
+			table th{
+				height:30px;
+				vertical-align: middle;
+				border-bottom: 2px solid #ddd;
+				text-align:left;
+				padding-left:10px;
+			}
+			table tr td{
+				padding: 8px;
+				line-height: 1.42857143;
+				vertical-align: middle;
+			}
+			table tr:not(:first-child) td{
+				border-top: 1px solid #ddd;
+			}
+			h2 small{
+				font-size:65%;
+				font-weight: 400;
+				line-height: 1;
+				color: #999;
+			}
+		</style>
+		<script>
+			$(document).ready(function(){
+				$("form").heumValidation();
+			});
+		</script>
+	</head>
+	<body>
+		<h1>플러그인을 통하여 간편하게 javascript 검사를 할 수 있습니다</h1>
+		<h2 style="color:red">screen</h2>
+		<div style="padding: 30px;margin-bottom: 14px;border: 1px solid #e1e1e8;border-radius: 4px;">
+			<form action="#">
+				<input type="email" id="email" class="heum-input" data-heum-min="2" data-heum-max="20" data-heum-null="false" data-heum-label="이메일"/>
+				<input type="text" id="text" class="heum-input" data-heum-min="2" data-heum-max="12" data-heum-null="false" data-heum-number="true" data-heum-label="숫자"/>
+				<input type="tel" class="heum-input" data-heum-null="false" data-heum-label="연락처"/>
+				<input type="text" id="novalidation" class="heum-input" data-heum-validation="false" data-heum-label="검사안함"/>
+				<input type="checkbox" name="checkbox" data-heum-min="1" data-heum-null="false" data-heum-label="체크1"/>
+				<input type="checkbox" name="checkbox" data-heum-label="체크2"/>
+				<input type="radio" name="radio" data-heum-label="라디오1"/>
+				<input type="radio" name="radio" data-heum-label="라디오2"/>
+				<button type="submit">전송</button>
+				<button type="reset">초기화</button>
+			</form>
+		</div>
+		<h2 style="color:red">javascript</h2>
+		<div style="padding: 9px 14px;margin-bottom: 14px;border: 1px solid #e1e1e8;border-radius: 4px;">
+			<ol style="margin: 0px; padding: 0px 0px 0px 48px; color: rgb(172, 172, 172); font-family: Consolas, Menlo, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace, serif; font-size: 12px; line-height: 21px;">
+			    <li class="li1" style="-webkit-user-select: none;">
+			        <div class="de1" style="-webkit-user-select: text; padding: 0px 5px; vertical-align: top; color: rgb(0, 0, 0); border-left-width: 1px; border-left-style: solid; border-left-color: rgb(204, 204, 204); margin: 0px 0px 0px -7px; position: relative; background-color: rgb(255, 255, 255);">$<span class="br0" style="color: rgb(0, 153, 0);">(</span>document<span class="br0" style="color: rgb(0, 153, 0);">)</span>.<span class="me1" style="color: rgb(102, 0, 102);">ready</span><span class="br0" style="color: rgb(0, 153, 0);">(</span><span class="kw1" style="color: rgb(0, 0, 102); font-weight: bold;">function</span><span class="br0" style="color: rgb(0, 153, 0);">(</span><span class="br0" style="color: rgb(0, 153, 0);">)</span><span class="br0" style="color: rgb(0, 153, 0);">{</span>
+			        </div>
+			    </li>
+			    <li class="li2" style="-webkit-user-select: none;">
+			        <div class="de2" style="-webkit-user-select: text; padding: 0px 5px; vertical-align: top; color: rgb(0, 0, 0); border-left-width: 1px; border-left-style: solid; border-left-color: rgb(204, 204, 204); margin: 0px 0px 0px -7px; position: relative; background-color: rgb(255, 255, 255);">&nbsp; &nbsp; &nbsp; &nbsp; $<span class="br0" style="color: rgb(0, 153, 0);">(</span><span class="st0" style="color: rgb(51, 102, 204);">"form"</span><span class="br0" style="color: rgb(0, 153, 0);">)</span>.<span class="me1" style="color: rgb(102, 0, 102);">heumValidation</span><span class="br0" style="color: rgb(0, 153, 0);">(</span><span class="br0" style="color: rgb(0, 153, 0);">)</span><span class="sy0" style="color: rgb(51, 153, 51);">;</span>
+			        </div>
+			    </li>
+			    <li class="li1" style="-webkit-user-select: none;">
+			        <div class="de1" style="-webkit-user-select: text; padding: 0px 5px; vertical-align: top; color: rgb(0, 0, 0); border-left-width: 1px; border-left-style: solid; border-left-color: rgb(204, 204, 204); margin: 0px 0px 0px -7px; position: relative; background-color: rgb(255, 255, 255);"><span class="br0" style="color: rgb(0, 153, 0);">}</span><span class="br0" style="color: rgb(0, 153, 0);">)</span><span class="sy0" style="color: rgb(51, 153, 51);">;</span>
+			        </div>
+			    </li>
+			</ol>
+		</div>
+		<h2 style="color:red">html</h2>
+		<div style="padding: 9px 14px;margin-bottom: 14px;border: 1px solid #e1e1e8;border-radius: 4px;">
+			<ol style="margin: 0px; padding: 0px 0px 0px 48px; color: rgb(172, 172, 172); font-family: Consolas, Menlo, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace, serif; font-size: 12px; line-height: 21px;">
+			    <li class="li1" style="-webkit-user-select: none;">
+			        <div class="de1" style="-webkit-user-select: text; padding: 0px 5px; vertical-align: top; color: rgb(0, 0, 0); border-left-width: 1px; border-left-style: solid; border-left-color: rgb(204, 204, 204); margin: 0px 0px 0px -7px; position: relative; background-color: rgb(255, 255, 255);"><span class="sc2" style="color: rgb(0, 153, 0);">&lt;<span class="kw2" style="color: rgb(0, 0, 0); font-weight: bold;">form</span>&nbsp;<span class="kw3" style="color: rgb(0, 0, 102);">action</span><span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"#"</span>&gt;</span>
+			        </div>
+			    </li>
+			    <li class="li2" style="-webkit-user-select: none;">
+			        <div class="de2" style="-webkit-user-select: text; padding: 0px 5px; vertical-align: top; color: rgb(0, 0, 0); border-left-width: 1px; border-left-style: solid; border-left-color: rgb(204, 204, 204); margin: 0px 0px 0px -7px; position: relative; background-color: rgb(255, 255, 255);">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<span class="sc2" style="color: rgb(0, 153, 0);">&lt;<span class="kw2" style="color: rgb(0, 0, 0); font-weight: bold;">input</span>&nbsp;<span class="kw3" style="color: rgb(0, 0, 102);">type</span><span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"email"</span>&nbsp;<span class="kw3" style="color: rgb(0, 0, 102);">id</span><span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"email"</span>&nbsp;<span class="kw3" style="color: rgb(0, 0, 102);">class</span><span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"heum-input"</span>&nbsp;data-heum-min<span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"2"</span>&nbsp;data-heum-max<span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"20"</span>&nbsp;data-heum-null<span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"false"</span>&nbsp;data-heum-label<span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"이메일"</span><span class="sy0" style="color: rgb(102, 204, 102);">/</span>&gt;</span>
+			        </div>
+			    </li>
+			    <li class="li1" style="-webkit-user-select: none;">
+			        <div class="de1" style="-webkit-user-select: text; padding: 0px 5px; vertical-align: top; color: rgb(0, 0, 0); border-left-width: 1px; border-left-style: solid; border-left-color: rgb(204, 204, 204); margin: 0px 0px 0px -7px; position: relative; background-color: rgb(255, 255, 255);">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<span class="sc2" style="color: rgb(0, 153, 0);">&lt;<span class="kw2" style="color: rgb(0, 0, 0); font-weight: bold;">input</span>&nbsp;<span class="kw3" style="color: rgb(0, 0, 102);">type</span><span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"text"</span>&nbsp;<span class="kw3" style="color: rgb(0, 0, 102);">id</span><span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"text"</span>&nbsp;<span class="kw3" style="color: rgb(0, 0, 102);">class</span><span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"heum-input"</span>&nbsp;data-heum-min<span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"2"</span>&nbsp;data-heum-max<span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"12"</span>&nbsp;data-heum-null<span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"false"</span>&nbsp;data-heum-number<span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"true"</span>&nbsp;data-heum-label<span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"숫자"</span><span class="sy0" style="color: rgb(102, 204, 102);">/</span>&gt;</span>
+			        </div>
+			    </li>
+			    <li class="li2" style="-webkit-user-select: none;">
+			        <div class="de2" style="-webkit-user-select: text; padding: 0px 5px; vertical-align: top; color: rgb(0, 0, 0); border-left-width: 1px; border-left-style: solid; border-left-color: rgb(204, 204, 204); margin: 0px 0px 0px -7px; position: relative; background-color: rgb(255, 255, 255);">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<span class="sc2" style="color: rgb(0, 153, 0);">&lt;<span class="kw2" style="color: rgb(0, 0, 0); font-weight: bold;">input</span>&nbsp;<span class="kw3" style="color: rgb(0, 0, 102);">type</span><span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"tel"</span>&nbsp;<span class="kw3" style="color: rgb(0, 0, 102);">class</span><span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"heum-input"</span>&nbsp;data-heum-null<span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"false"</span>&nbsp;data-heum-label<span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"연락처"</span><span class="sy0" style="color: rgb(102, 204, 102);">/</span>&gt;</span>
+			        </div>
+			    </li>
+			    <li class="li1" style="-webkit-user-select: none;">
+			        <div class="de1" style="-webkit-user-select: text; padding: 0px 5px; vertical-align: top; color: rgb(0, 0, 0); border-left-width: 1px; border-left-style: solid; border-left-color: rgb(204, 204, 204); margin: 0px 0px 0px -7px; position: relative; background-color: rgb(255, 255, 255);">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<span class="sc2" style="color: rgb(0, 153, 0);">&lt;<span class="kw2" style="color: rgb(0, 0, 0); font-weight: bold;">input</span>&nbsp;<span class="kw3" style="color: rgb(0, 0, 102);">type</span><span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"text"</span>&nbsp;<span class="kw3" style="color: rgb(0, 0, 102);">id</span><span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"novalidation"</span>&nbsp;<span class="kw3" style="color: rgb(0, 0, 102);">class</span><span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"heum-input"</span>&nbsp;data-heum-validation<span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"false"</span>&nbsp;data-heum-label<span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"검사안함"</span><span class="sy0" style="color: rgb(102, 204, 102);">/</span>&gt;</span>
+			        </div>
+			    </li>
+			    <li class="li2" style="-webkit-user-select: none;">
+			        <div class="de2" style="-webkit-user-select: text; padding: 0px 5px; vertical-align: top; color: rgb(0, 0, 0); border-left-width: 1px; border-left-style: solid; border-left-color: rgb(204, 204, 204); margin: 0px 0px 0px -7px; position: relative; background-color: rgb(255, 255, 255);">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<span class="sc2" style="color: rgb(0, 153, 0);">&lt;<span class="kw2" style="color: rgb(0, 0, 0); font-weight: bold;">input</span>&nbsp;<span class="kw3" style="color: rgb(0, 0, 102);">type</span><span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"checkbox"</span>&nbsp;<span class="kw3" style="color: rgb(0, 0, 102);">name</span><span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"checkbox"</span>&nbsp;data-heum-min<span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"1"</span>&nbsp;data-heum-null<span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"false"</span>&nbsp;data-heum-label<span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"체크1"</span><span class="sy0" style="color: rgb(102, 204, 102);">/</span>&gt;</span>
+			        </div>
+			    </li>
+			    <li class="li1" style="-webkit-user-select: none;">
+			        <div class="de1" style="-webkit-user-select: text; padding: 0px 5px; vertical-align: top; color: rgb(0, 0, 0); border-left-width: 1px; border-left-style: solid; border-left-color: rgb(204, 204, 204); margin: 0px 0px 0px -7px; position: relative; background-color: rgb(255, 255, 255);">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<span class="sc2" style="color: rgb(0, 153, 0);">&lt;<span class="kw2" style="color: rgb(0, 0, 0); font-weight: bold;">input</span>&nbsp;<span class="kw3" style="color: rgb(0, 0, 102);">type</span><span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"checkbox"</span>&nbsp;<span class="kw3" style="color: rgb(0, 0, 102);">name</span><span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"checkbox"</span>&nbsp;data-heum-label<span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"체크2"</span><span class="sy0" style="color: rgb(102, 204, 102);">/</span>&gt;</span>
+			        </div>
+			    </li>
+			    <li class="li2" style="-webkit-user-select: none;">
+			        <div class="de2" style="-webkit-user-select: text; padding: 0px 5px; vertical-align: top; color: rgb(0, 0, 0); border-left-width: 1px; border-left-style: solid; border-left-color: rgb(204, 204, 204); margin: 0px 0px 0px -7px; position: relative; background-color: rgb(255, 255, 255);">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<span class="sc2" style="color: rgb(0, 153, 0);">&lt;<span class="kw2" style="color: rgb(0, 0, 0); font-weight: bold;">input</span>&nbsp;<span class="kw3" style="color: rgb(0, 0, 102);">type</span><span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"radio"</span>&nbsp;<span class="kw3" style="color: rgb(0, 0, 102);">name</span><span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"radio"</span>&nbsp;data-heum-label<span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"라디오1"</span><span class="sy0" style="color: rgb(102, 204, 102);">/</span>&gt;</span>
+			        </div>
+			    </li>
+			    <li class="li1" style="-webkit-user-select: none;">
+			        <div class="de1" style="-webkit-user-select: text; padding: 0px 5px; vertical-align: top; color: rgb(0, 0, 0); border-left-width: 1px; border-left-style: solid; border-left-color: rgb(204, 204, 204); margin: 0px 0px 0px -7px; position: relative; background-color: rgb(255, 255, 255);">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<span class="sc2" style="color: rgb(0, 153, 0);">&lt;<span class="kw2" style="color: rgb(0, 0, 0); font-weight: bold;">input</span>&nbsp;<span class="kw3" style="color: rgb(0, 0, 102);">type</span><span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"radio"</span>&nbsp;<span class="kw3" style="color: rgb(0, 0, 102);">name</span><span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"radio"</span>&nbsp;data-heum-label<span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"라디오2"</span><span class="sy0" style="color: rgb(102, 204, 102);">/</span>&gt;</span>
+			        </div>
+			    </li>
+			    <li class="li2" style="-webkit-user-select: none;">
+			        <div class="de2" style="-webkit-user-select: text; padding: 0px 5px; vertical-align: top; color: rgb(0, 0, 0); border-left-width: 1px; border-left-style: solid; border-left-color: rgb(204, 204, 204); margin: 0px 0px 0px -7px; position: relative; background-color: rgb(255, 255, 255);">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<span class="sc2" style="color: rgb(0, 153, 0);">&lt;<span class="kw2" style="color: rgb(0, 0, 0); font-weight: bold;">button</span>&nbsp;<span class="kw3" style="color: rgb(0, 0, 102);">type</span><span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"submit"</span>&gt;</span>전송<span class="sc2" style="color: rgb(0, 153, 0);">&lt;<span class="sy0" style="color: rgb(102, 204, 102);">/</span><span class="kw2" style="color: rgb(0, 0, 0); font-weight: bold;">button</span>&gt;</span>
+			        </div>
+			    </li>
+			    <li class="li1" style="-webkit-user-select: none;">
+			        <div class="de1" style="-webkit-user-select: text; padding: 0px 5px; vertical-align: top; color: rgb(0, 0, 0); border-left-width: 1px; border-left-style: solid; border-left-color: rgb(204, 204, 204); margin: 0px 0px 0px -7px; position: relative; background-color: rgb(255, 255, 255);">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<span class="sc2" style="color: rgb(0, 153, 0);">&lt;<span class="kw2" style="color: rgb(0, 0, 0); font-weight: bold;">button</span>&nbsp;<span class="kw3" style="color: rgb(0, 0, 102);">type</span><span class="sy0" style="color: rgb(102, 204, 102);">=</span><span class="st0" style="color: rgb(255, 0, 0);">"reset"</span>&gt;</span>초기화<span class="sc2" style="color: rgb(0, 153, 0);">&lt;<span class="sy0" style="color: rgb(102, 204, 102);">/</span><span class="kw2" style="color: rgb(0, 0, 0); font-weight: bold;">button</span>&gt;</span>
+			        </div>
+			    </li>
+			    <li class="li2" style="-webkit-user-select: none;">
+			        <div class="de2" style="-webkit-user-select: text; padding: 0px 5px; vertical-align: top; color: rgb(0, 0, 0); border-left-width: 1px; border-left-style: solid; border-left-color: rgb(204, 204, 204); margin: 0px 0px 0px -7px; position: relative; background-color: rgb(255, 255, 255);"><span class="sc2" style="color: rgb(0, 153, 0);">&lt;<span class="sy0" style="color: rgb(102, 204, 102);">/</span><span class="kw2" style="color: rgb(0, 0, 0); font-weight: bold;">form</span>&gt;</span>
+			        </div>
+			    </li>
+			</ol>
+		</div>
+		<h2 style="color:red">event</h2>
+		<div style="padding: 9px 14px;margin-bottom: 14px;border: 1px solid #e1e1e8;border-radius: 4px;">
+			<table cellspacing="0" cellpadding="0" border="0" style="width:100%;">
+				<colgroup>
+					<col width="20%"/>
+					<col width="10%"/>
+					<col width="70%"/>
+				</colgroup>
+				<thead>
+					<tr>
+						<th>Event</th>
+						<th>return</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>reset()</td>
+						<td>undefined</td>
+						<td>선택된 validation 안의 내용을 초기화 시킵니다</td>
+					</tr>
+					<tr>
+						<td>parseBoolean(child element)</td>
+						<td>boolean</td>
+						<td>parseBoolean</td>
+					</tr>
+					<tr>
+						<td>emailValidation(child element)</td>
+						<td>boolean</td>
+						<td>해당 요소가 이메일이 유효한지 검사합니다</td>
+					</tr>
+					<tr>
+						<td>phoneValidation(child element)</td>
+						<td>boolean</td>
+						<td>해당 요소의 연락처가 유효한지 검사합니다</td>
+					</tr>
+					<tr>
+						<td>isEmpty(child element)</td>
+						<td>boolean</td>
+						<td>해당 요소가 빈값인지 체크합니다</td>
+					</tr>
+					<tr>
+						<td>validations(child element)</td>
+						<td>undefined</td>
+						<td>해당 요소를 검사합니다</td>
+					</tr>
+					<tr>
+						<td>changeView(element,division,text)</td>
+						<td>undefined</td>
+						<td>
+							(해당 기능은 jquery.bootstrap.heum.validation.js에만 해당됩니다)
+							<br/>division에 따라 요소 색이 변경됩니다
+							<br/>division 종류는 error,warning,success가있습니다
+							<br/>text는 원하는 validation 글자를 표시합니다
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<h2 style="color:red">option <small> checkbox나 radio는 같은 name의 첫번째 요소의 옵션만 인식합니다</small></h2>
+		<div style="padding: 9px 14px;margin-bottom: 14px;border: 1px solid #e1e1e8;border-radius: 4px;">
+			<table cellspacing="0" cellpadding="0" border="0" style="width:100%;">
+				<colgroup>
+					<col width="20%"/>
+					<col width="10%"/>
+					<col width="10%"/>
+					<col width="60%"/>
+				</colgroup>
+				<thead>
+					<tr>
+						<th>Data</th>
+						<th>Type</th>
+						<th>Default</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>data-heum-min</td>
+						<td>Integer</td>
+						<td>0</td>
+						<td>
+							최소로 입력해야할 글자 수 입니다, checkbox는 최소 몇개 선택
+							<br/>0이면 체크 하지 않습니다
+						</td>
+					</tr>
+					<tr>
+						<td>data-heum-max</td>
+						<td>Integer</td>
+						<td>0</td>
+						<td>
+							최대 입력할 수 있는 글자 수 입니다, checkbox는 최소 몇개 선택
+							<br/>0이면 체크 하지 않습니다
+						</td>
+					</tr>
+					<tr>
+						<td>data-heum-label</td>
+						<td>String</td>
+						<td>null</td>
+						<td>
+							해당 요소의 라벨 이름
+						</td>
+					</tr>
+					<tr>
+						<td>data-heum-group-label</td>
+						<td>String</td>
+						<td>null</td>
+						<td>
+							radio 또는 checkbox일때 묶일 그룹의 라벨 이름
+						</td>
+					</tr>
+					<tr>
+						<td>data-heum-null</td>
+						<td>boolean</td>
+						<td>true</td>
+						<td>
+							빈칸 허용 할지의 유무
+						</td>
+					</tr>
+					<tr>
+						<td>data-heum-number</td>
+						<td>boolean</td>
+						<td>false</td>
+						<td>
+							숫자만 사용할지의 유무
+						</td>
+					</tr>
+					<tr>
+						<td>data-heum-validation</td>
+						<td>boolean</td>
+						<td>true</td>
+						<td>
+							해당 요소를 검사할지 말지의 유무
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<ul>
+			<li><a href="./basic-heumValidation.html">basic-heumValidation.html</a></li>
+			<li><a href="./event-heumValidation.html">event-heumValidation.html</a></li>
+			<li><a href="./bootstrap-heumValidation.html">bootstrap-heumValidation.html</a></li>
+		</ul>
+	</body>
+</html>
