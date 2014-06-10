@@ -10,7 +10,7 @@ http://kwangheum.github.io/heumValidation/validation.html
 
 ```javascript
 $(document).ready(function(){
-  $("form").heumValidation().reset();
+  $("form").heumValidation();
 });
 
 ```
