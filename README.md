@@ -2,7 +2,7 @@ heumValidation
 ==============
 Jquery plugin Validation
 
-Online demo
+online demo
 
 http://kwangheum.github.io/heumValidation/validation.html
 
