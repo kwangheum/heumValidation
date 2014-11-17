@@ -2,7 +2,7 @@ heumValidation
 ==============
 Jquery plugin Validation
 
-you can see <a href="http://kwangheum.github.io/heumValidation/validation.html">live demo</a>.
+you can see <a href="http://kwangheum.github.io/heumValidation/v2/validation.html">live demo</a>.
 
 
 ## Example
