@@ -1,9 +1,9 @@
 /**
- * version : 1.0
+ * version : 2.0
+ * bootstrap version : 3.2.0
  * developer : kwangheum
  * email : myrkh1213@gmail.com
- * blog : http://kwangheum.blogspot.kr
- * github : http://github.com/kwangheum
+ * hompage : http://kwangheum.blogspot.kr
 */
 (function($, window, document, undefined) {
 	var pluginName = "heumValidation", 
@@ -51,8 +51,14 @@
 	function phoneValidation(elementValue){
 		var regExp = /^[0-9-+]+$/;
 		if(regExp.test(elementValue)){
-			var mobileRegExp = /^(01[016789])-?\d{3,4}-?\d{4}$/;
-			var phoneRegExp = /^(070|02|031|032|033|041|042|043|051|052|053|054|055|061|062|063|064)-?\d{3,4}-?\d{4}$/;
+			var mobileRegExp="",phoneRegExp="";
+			if(elementValue.match(/^\+/)){
+				mobileRegExp = /^(\+\d{2,4})-?(0?1[016789])-?\d{3,4}-?\d{4}$/;
+				phoneRegExp = /^(\+\d{2,4})-?(0?70|0?2|0?31|0?32|0?33|0?41|0?42|0?43|0?51|0?52|0?53|0?54|0?55|0?61|0?62|0?63|0?64)-?\d{3,4}-?\d{4}$/;
+			}else{
+				mobileRegExp = /^(01[016789])-?\d{3,4}-?\d{4}$/;
+				phoneRegExp = /^(070|02|031|032|033|041|042|043|051|052|053|054|055|061|062|063|064)-?\d{3,4}-?\d{4}$/;
+			}
 			if(mobileRegExp.test(elementValue)||phoneRegExp.test(elementValue)){
 				return "";
 			}else{
@@ -193,18 +199,34 @@
 			if(!element.hasClass("form-horizontal")){
 				element.addClass("form-horizontal");
 			}
-			element.find("input:visible,textarea:visible").each(function(){
+			$("textarea").ckeditor({
+				toolbar : [
+		     		['Cut','Copy','Paste','PasteText','PasteFromWord','Undo','Redo'],
+		     		['Link','Unlink','Anchor'],
+		     		['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
+		     		['Maximize'],
+		     		['Source'],
+		     		['Bold','Italic','Underline','Strike','Subscript','Superscript','Find','Replace','SelectAll','RemoveFormat'],
+		     		['Form', 'Checkbox', 'Radio','TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
+		     		['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
+		     		['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+		     		['Styles','Format','Font','FontSize'],
+		     		['TextColor','BGColor'],
+		     		['ShowBlocks']
+		     	]
+			});
+			element.find("input").each(function(){
 				var thisElement = $(this);
 				var label = $("<label/>",{
 					class : "col-md-2 control-label",
-					text : $(this).data("heum-label"),
-					"for" : $(this).attr("id")
+					text : thisElement.data("heum-label"),
+					"for" : thisElement.attr("id")
 				});
 				var divGroup = $("<div/>",{
 					class : "heum-validation-group form-group has-feedback"
 				});
 				var div = $("<div/>",{
-					class : "col-md-10"
+					class : "col-md-"+(isEmpty(thisElement.data("heum-label"))?"12":"10")
 				});
 				var feed = $("<span/>",{
 					class : "heum-validation-feed glyphicon form-control-feedback"
@@ -215,36 +237,61 @@
 				var validationValue = $("<input/>",{
 					class : "heum-validation-value",
 					type : "hidden",
-					value : !parseBoolean($(this).data("heum-validation"))
+					value : !parseBoolean(thisElement.data("heum-validation"))
 				});
-				if($(this).attr("type")!="checkbox"&&$(this).attr("type")!="radio"){
-					$(this).wrap(div).parent("div").append(feed,validationText,validationValue);
-					$(this).parent("div").wrap(divGroup);
-					$(this).parents("div.heum-validation-group").prepend(label);
+				if(thisElement.attr("type")!="checkbox"&&thisElement.attr("type")!="radio"){
+					thisElement.wrap(div).parent("div").append(feed,validationText,validationValue);
+					thisElement.parent("div").wrap(divGroup);
+					if(!isEmpty(thisElement.data("heum-label"))){
+						thisElement.parents("div.heum-validation-group").prepend(label);
+					}
 				}else{
-					if($("input[name="+$(this).attr("name")+"]").index($(this))==0){
-						$("input[name="+$(this).attr("name")+"]").wrapAll(div).parent("div").append(validationText,validationValue);
-						$(this).parent("div").wrap(divGroup);
+					if($("input[name="+thisElement.attr("name")+"]").index(thisElement)==0){
+						$("input[name="+thisElement.attr("name")+"]").wrapAll(div).parent("div").append(validationText,validationValue);
+						thisElement.parent("div").wrap(divGroup);
 						var groupLabel = $("<label/>",{
 							class : "col-md-2 control-label",
-							text : $(this).data("heum-group-label")
+							text : thisElement.data("heum-group-label"),
+							css : {
+								"font-weight" : "bold"
+							}
 						});
-						$(this).parents(".heum-validation-group").find(".heum-validation-text").wrap("<div/>");
-						$(this).parents(".heum-validation-group").prepend(groupLabel);
+						thisElement.parents(".heum-validation-group").find(".heum-validation-text").wrap("<div/>");
+						thisElement.parents(".heum-validation-group").prepend(groupLabel);
+						if(!parseBoolean(thisElement.data("heum-vertical"))){
+							if(!thisElement.parents(".heum-validation-group").hasClass(thisElement.attr("type"))){
+								thisElement.parents(".heum-validation-group").addClass(thisElement.attr("type"));
+							}
+						}else{
+							if(!thisElement.parents(".heum-validation-group").hasClass("vertical")){
+								thisElement.parents(".heum-validation-group").addClass("vertical");
+							}
+						}
 					}
-					$(this).wrap(label.removeClass("col-md-2").addClass($(this).attr("type")+"-inline"));
+					label = $("<label/>",{
+						class : "control-label",
+						"for" : thisElement.attr("id")
+					});
+					thisElement.wrap(label);
+					if(!thisElement.parents(".heum-validation-group").hasClass("vertical")){
+						thisElement.parent("label").append(thisElement.data("heum-label"));
+					}else{
+						thisElement.parent("label").append(thisElement.data("heum-label")).wrap($("<label/>",{
+							class : thisElement.attr("type")
+						}));
+					}
 				}
-				if($(this).attr("type")!="checkbox"&&$(this).attr("type")!="radio"){
+				if(thisElement.attr("type")!="checkbox"&&thisElement.attr("type")!="radio"){
 					thisElement.keyup(function(){
-						validations($(this));
+						validations(thisElement);
 					});
 				}else{
 					thisElement.change(function(){
 						var elementOption = {
-							validationGroup : $(this).parents("div.heum-validation-group"),
-							validationValue : $(this).parents("div.heum-validation-group").find(".heum-validation-value"),
-							validationText : $(this).parents("div.heum-validation-group").find(".heum-validation-text"),
-							validationFeed : $(this).parents("div.heum-validation-group").find(".heum-validation-feed")
+							validationGroup : thisElement.parents("div.heum-validation-group"),
+							validationValue : thisElement.parents("div.heum-validation-group").find(".heum-validation-value"),
+							validationText : thisElement.parents("div.heum-validation-group").find(".heum-validation-text"),
+							validationFeed : thisElement.parents("div.heum-validation-group").find(".heum-validation-feed")
 						};
 						changeView(elementOption,"default","");
 						elementOption.validationValue.val(false);
