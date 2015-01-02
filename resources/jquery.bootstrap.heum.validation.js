@@ -1,11 +1,230 @@
 /**
- * version : 2.0
+ * version : 3.0
  * bootstrap version : 3.2.0
  * developer : kwangheum
  * email : myrkh1213@gmail.com
  * hompage : http://kwangheum.blogspot.kr
 */
 (function($, window, document, undefined) {
+	/**
+	 * data-null : true,false
+	 * data-min-length : int
+	 * data-max-length : int
+	 * data-number : true,false
+	 * data-email : true,false
+	 * data-phone : true,false
+	 * data-url :  true,false
+	 * data-pattern : String
+	 */
+	function validation(element){
+		var error = false;
+		$(element).find("[data-null]").each(function(cnt,node){
+			if(($(node).data("null")!=undefined&&!$(node).data("null"))||$(node).data("null")=="false"){
+				if(!nullCheck(node)){
+					var title="";
+					var nullPoint = false;
+					nullPoint = ($(node).data("message")==undefined||$(node).data("message").replace(/ /gi,'')=='');
+					if(nullPoint){
+						if($(node).attr("type")=="file"){
+							title="파일을 첨부해주세요";
+						}else if($(node).attr("type")=="checkbox"||$(node).attr("type")=="radio"){
+							title="값을 선택해주세요";
+						}else{
+							title="값을 입력해주세요";
+						}
+					}else{
+						title = $(node).data("message");
+					}
+					$(node).tooltip("destroy");
+					$(node).addClass("form-has-error").tooltip({
+						title:title
+					});
+					error = true;
+				}
+			}
+		});
+		$(element).find("[data-min-length]").each(function(cnt,node){
+			if($(node).attr("multiple")==undefined){
+				if(nullCheck(node)){
+					var minLength = parseInt($(node).data("min-length"));
+					var dataLength = 0;
+					var title = "";
+					if($(node).attr("type")=="file"){
+						dataLength = $("input[type=file]").val().replace("C:\\fakepath\\","").length;
+						if($(node).data("message")==undefined||$(node).data("message").replace(/ /gi,'')==''){
+							title = "파일명의 길이가 짧습니다. 최소 "+minLength+"글자 이상인 파일명을 올려주세요";
+						}else{
+							title = $(node).data("message");
+						}
+					}else if($(node).attr("type")=="checkbox"){
+						dataLength = $("input[name="+$(node).attr("name")+"]:checked").length;
+						if($(node).data("message")==undefined||$(node).data("message").replace(/ /gi,'')==''){
+							title = "최소 "+minLength+"개를 선택해 주세요";
+						}else{
+							title = $(node).data("message");
+						}
+					}else{
+						dataLength = $(node).val().length;
+						if($(node).data("message")==undefined||$(node).data("message").replace(/ /gi,'')==''){
+							title = "값의 길이가 짧습니다. 최소 "+minLength+"글자 이상인 값을 작성해주세요";
+						}else{
+							title = $(node).data("message");
+						}
+					}
+					if(dataLength<minLength){
+						error = true;
+						$(node).tooltip("destroy");
+						$(node).addClass("form-has-error").tooltip({
+							title:title
+						});
+					}
+				}
+			}
+		});
+		$(element).find("[data-max-length]").each(function(cnt,node){
+			if($(node).attr("multiple")==undefined){
+				if(nullCheck(node)){
+					var maxLength = parseInt($(node).data("max-length"));
+					var dataLength = 0;
+					var title = "";
+					if($(node).attr("type")=="file"){
+						dataLength = $("input[type=file]").val().replace("C:\\fakepath\\","").length;
+						if($(node).data("message")==undefined||$(node).data("message").replace(/ /gi,'')==''){
+							title = "파일명의 길이가 깁니다. 최대 "+maxLength+"글자 이하인 파일을 올려주세요";
+						}else{
+							title = $(node).data("message");
+						}
+					}else if($(node).attr("type")=="checkbox"){
+						dataLength = $("input[name="+$(node).attr("name")+"]:checked").length;
+						if($(node).data("message")==undefined||$(node).data("message").replace(/ /gi,'')==''){
+							title = "최대 "+maxLength+"개를 선택해 주세요";
+						}else{
+							title = $(node).data("message");
+						}
+					}else{
+						dataLength = $(node).val().length;
+						if($(node).data("message")==undefined||$(node).data("message").replace(/ /gi,'')==''){
+							title = "값의 길이가 깁니다. 최대 "+maxLength+"글자 이하인 값을 작성해주세요";
+						}else{
+							title = $(node).data("message");
+						}
+					}
+					if(dataLength>maxLength){
+						error = true;
+						$(node).tooltip("destroy");
+						$(node).addClass("form-has-error").tooltip({
+							title:title
+						});
+					}
+				}
+			}
+		});
+		$(element).find("[data-number=true]").each(function(cnt,node){
+			if(nullCheck(node)){
+				var regex = /[0-9]/;
+				if(!regex.test($(node).val())){
+					var title="";
+					if($(node).data("message")==undefined||$(node).data("message").replace(/ /gi,'')==''){
+						title = "숫자만 입력해주세요";
+					}else{
+						title = $(node).data("message");
+					}
+					$(node).tooltip("destroy");
+					$(node).addClass("form-has-error").tooltip({
+						title:title
+					});
+					error = true;
+				}
+			}
+		});
+		$(element).find("[data-email=true]").each(function(cnt,node){
+			if(nullCheck(node)){
+				var regex = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+				var title="";
+				if($(node).data("message")==undefined||$(node).data("message").replace(/ /gi,'')==''){
+					title = "정확한 이메일을 작성해주세요";
+				}else{
+					title = $(node).data("message");
+				}
+				if(!regex.test($(node).val())){
+					$(node).tooltip("destroy");
+					$(node).addClass("form-has-error").tooltip({
+						title:title
+					});
+					error = true;
+				}
+			}
+		});
+		$(element).find("[data-phone=true]").each(function(cnt,node){
+			if(nullCheck(node)){
+				var regex = /^[0-9-+]+$/;
+				if(!regex.test($(node).val())){
+					var mobileRegExp = /^(01[016789])-?\d{3,4}-?\d{4}$/;
+					var phoneRegExp = /^(070|02|031|032|033|041|042|043|051|052|053|054|055|061|062|063|064)-?\d{3,4}-?\d{4}$/;
+					var title="";
+					if($(node).data("message")==undefined||$(node).data("message").replace(/ /gi,'')==''){
+						title = "정확한 연락처를 작성해주세요";
+					}else{
+						title = $(node).data("message");
+					}
+					if(!(mobileRegExp.test(elementValue)||phoneRegExp.test(elementValue))){
+						$(node).addClass("form-has-error").tooltip({
+							title:title
+						});
+						error = true;
+					}
+				}
+			}
+		});
+		$(element).find("[data-url=true]").each(function(cnt,node){
+			if(nullCheck(node)){
+				var regex = /^(http(s?)):\/\/(.*)/;
+				var title="";
+				if($(node).data("message")==undefined||$(node).data("message").replace(/ /gi,'')==''){
+					title = "정확한 홈페이지 주소를 작성해주세요";
+				}else{
+					title = $(node).data("message");
+				}
+				if(!regex.test($(node).val())){
+					$(node).addClass("form-has-error").tooltip({
+						title:title
+					});
+					error = true;
+				}
+			}
+		});
+		$(element).find("[data-pattern]").each(function(cnt,node){
+			if(nullCheck(node)){
+				var regex = new RegExp($(node).data("pattern"));
+				if(!regex.test($(node).val())){
+					var title="";
+					if($(node).data("message")==undefined||$(node).data("message").replace(/ /gi,'')==''){
+						title = "입력할 수 없습니다";
+					}else{
+						title = $(node).data("message");
+					}
+					
+					$(node).addClass("form-has-error").tooltip({
+						title:title
+					});
+					error = true;
+				}
+			}
+		});
+		return !error;
+	}
+	function nullCheck(element){
+		var dataNull = false;
+		if($(element).attr("type")=="checkbox"||$(element).attr("type")=="radio"){
+			if($(element).attr("name")!=undefined&&$(element).attr("name").replace(/ /gi,"")!=""){
+				dataNull = $("input[name="+$(element).attr("name")+"]:checked").size()>0;
+			}
+		}else{
+			dataNull = ($(element).val().replace(/ /gi,"")!="");
+		}
+		return dataNull;
+	}
+	
 	var pluginName = "heumValidation", 
 		defaults = {};
 	function Plugin(element, options) {
@@ -15,317 +234,25 @@
 		this._name = pluginName;
 		this.init();
 	}
-	function eventHandler(event, selector) {
-	    event.stopPropagation();
-	    event.preventDefault();
-	    if (event.type === 'touchend'){
-	        selector.off('click');
-	    }
-	}
-	function parseBoolean(elementValue) {
-		return /true/i.test(elementValue);
-	}
-	function changeView(elementOption,division,text){
-		elementOption.validationGroup.removeClass("has-warning").removeClass("has-error").removeClass("has-success");
-		elementOption.validationGroup.removeClass("glyphicon-warning-sign").removeClass("glyphicon-remove").removeClass("glyphicon-ok");
-		if(division=="success"){
-			elementOption.validationGroup.addClass("has-success");
-			elementOption.validationFeed.addClass("glyphicon-ok");
-			elementOption.validationText.text(text);
-		}else if (division=="error"){
-			elementOption.validationGroup.addClass("has-error");
-			elementOption.validationFeed.addClass("glyphicon-remove");
-			elementOption.validationText.text(text);
-		}else if(division=="warning"){
-			elementOption.validationGroup.addClass("has-warning");
-			elementOption.validationFeed.addClass("glyphicon-warning-sign");
-			elementOption.validationText.text(text);
-		}else if(division=="default"){
-			elementOption.validationText.text(text);
-		}
-	}
-	function emailValidation(elementValue){
-		var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-		return expr.test(elementValue);
-	}
-	function phoneValidation(elementValue){
-		var regExp = /^[0-9-+]+$/;
-		if(regExp.test(elementValue)){
-			var mobileRegExp="",phoneRegExp="";
-			if(elementValue.match(/^\+/)){
-				mobileRegExp = /^(\+\d{2,4})-?(0?1[016789])-?\d{3,4}-?\d{4}$/;
-				phoneRegExp = /^(\+\d{2,4})-?(0?70|0?2|0?31|0?32|0?33|0?41|0?42|0?43|0?51|0?52|0?53|0?54|0?55|0?61|0?62|0?63|0?64)-?\d{3,4}-?\d{4}$/;
-			}else{
-				mobileRegExp = /^(01[016789])-?\d{3,4}-?\d{4}$/;
-				phoneRegExp = /^(070|02|031|032|033|041|042|043|051|052|053|054|055|061|062|063|064)-?\d{3,4}-?\d{4}$/;
-			}
-			if(mobileRegExp.test(elementValue)||phoneRegExp.test(elementValue)){
-				return "";
-			}else{
-				return "연락처 형식에 맞지 않습니다";
-			}
-		}else{
-			return "연락처는 숫자 또는 + 또는 - 만 사용하실 수 있습니다";
-		}
-	}
-	function textValidation(elementValue,elementOption){
-		if(!elementOption.nullPermit){
-			if(isEmpty(elementValue)){
-				return "빈칸을 허용하지 않습니다";
-			}
-		}
-		if(elementOption.number&&!$.isNumeric(elementValue)){
-			return "숫자만 입력할 수 있습니다";
-		}
-		if(elementOption.min>0){
-			if(elementValue.length <= elementOption.min){
-				return elementOption.min+"자 이상 작성해주시길 바랍니다";
-			}
-		}
-		if(elementOption.max>0){
-			if(elementValue.length > elementOption.max){
-				return "최대 길이는 "+elementOption.max+"자 까지입니다";
-			}
-		}
-		return "";
-	}
-	function isEmpty(elementValue){
-		if(elementValue==undefined){
-			return true;
-		}else{
-			if(elementValue.replace(/ /,'')==''){
-				return true;
-			}else{
-				return false;
-			}
-		}
-	}
-	function checkboxValidation(elementOption){
-		var errorMessage="";
-		if(elementOption.name!=undefined){
-			if(elementOption.min>0){
-				if($("input[name="+elementOption.name+"]:checked").size()<elementOption.min){
-					errorMessage = elementOption.min+"개 이상 선택해주시길 바랍니다";
-				}
-			}
-			if(elementOption.max>0){
-				if($("input[name=checkbox]:checked").size()<elementOption.min){
-					errorMessage = elementOption.max+"개 이하로 선택해주시길 바랍니다";
-				}
-			}
-		}
-		return errorMessage;
-	}
-	function radioValidation(elementOption){
-		if(elementOption.name!=undefined&&!elementOption.nullPermit){
-			if($("input[name="+elementOption.name+"]:checked").size()>0){
-				return "";
-			}else{
-				return "값을 선택해주세요";
-			}
-		}
-	}
-	function heumValidations(element,elementOption){
-		var elementOption = {
-				min : element.data("heum-min")==undefined?0:element.data("heum-min"),
-				max : element.data("heum-max")==undefined?0:element.data("heum-max"),
-				number : element.data("heum-number")==undefined?false:parseBoolean(element.data("heum-number")),
-				nullPermit : element.data("heum-null")==undefined?true:parseBoolean(element.data("heum-null")),
-				name : element.attr("name"),
-				id : element.attr("id"),
-				validationConfirm : element.data("heum-validation")==undefined?true:parseBoolean(element.data("heum-validation")),
-				validationGroup : element.parents("div.heum-validation-group"),
-				validationValue : element.parents("div.heum-validation-group").find(".heum-validation-value"),
-				validationText : element.parents("div.heum-validation-group").find(".heum-validation-text"),
-				validationLabel : element.parents("div.heum-validation-group").find("label"),
-				validationFeed : element.parents("div.heum-validation-group").find(".heum-validation-feed")
-			},error = false;
-		if(element.is("input")){
-			if(element.attr("type")=="email"){
-				if(emailValidation(element.val())){
-					var errorMessage = textValidation(element.val(),elementOption);
-					error = !isEmpty(errorMessage);
-					if(error){
-						changeView(elementOption,"error",errorMessage);
-					}else{
-						changeView(elementOption,"success","사용하셔도 좋습니다");
-					}
-					elementOption.validationValue.val(!error);
-				}else{
-					changeView(elementOption,"error","올바른 이메일을 입력해주세요");
-					elementOption.validationValue.val(false);
-					error = true;
-				}
-			}else if(element.attr("type")=="tel"){
-				var errorMessage = phoneValidation(element.val());
-				var textError = textValidation(element.val(),elementOption);
-				if(!isEmpty(textError)){
-					errorMessage = textError;
-				}
-				error = !isEmpty(errorMessage);
-				changeView(elementOption,(error?"error":"success"),errorMessage);
-				elementOption.validationValue.val(!error);
-			}else if(element.attr("type")=="checkbox"){
-				var errorMessage = checkboxValidation(elementOption);
-				error = !isEmpty(errorMessage);
-				changeView(elementOption,(error?"error":"success"),errorMessage);
-				elementOption.validationValue.val(!error);
-			}else if(element.attr("type")=="radio"){
-				elementOption.nullPermit = element.data("heum-null")==undefined?false:parseBoolean(element.data("heum-null"));
-				var errorMessage = radioValidation(elementOption);
-				error = !isEmpty(errorMessage);
-				changeView(elementOption,(error?"error":"success"),errorMessage);
-				elementOption.validationValue.val(!error);
-			}else{
-				var errorMessage = textValidation(element.val(),elementOption);
-				error = !isEmpty(errorMessage);
-				changeView(elementOption,(error?"error":"success"),errorMessage);
-				elementOption.validationValue.val(!error);
-			}
-		}
-	}
-	function validations(element){
-		var validationConfirm = element.data("heum-validation")==undefined?true:parseBoolean(element.data("heum-validation"));
-		if(validationConfirm){
-			heumValidations(element);
-		}
-	}
-	
 	Plugin.prototype = {
 		init : function() {
-			var defaults = defaults,
-				element = $(this.element),
-				options = this.options;
-			if(!element.hasClass("form-horizontal")){
-				element.addClass("form-horizontal");
-			}
-			$("textarea").ckeditor({
-				toolbar : [
-		     		['Cut','Copy','Paste','PasteText','PasteFromWord','Undo','Redo'],
-		     		['Link','Unlink','Anchor'],
-		     		['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
-		     		['Maximize'],
-		     		['Source'],
-		     		['Bold','Italic','Underline','Strike','Subscript','Superscript','Find','Replace','SelectAll','RemoveFormat'],
-		     		['Form', 'Checkbox', 'Radio','TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
-		     		['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
-		     		['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
-		     		['Styles','Format','Font','FontSize'],
-		     		['TextColor','BGColor'],
-		     		['ShowBlocks']
-		     	]
-			});
-			element.find("input").each(function(){
-				var thisElement = $(this);
-				var label = $("<label/>",{
-					class : "col-md-2 control-label",
-					text : thisElement.data("heum-label"),
-					"for" : thisElement.attr("id")
-				});
-				var divGroup = $("<div/>",{
-					class : "heum-validation-group form-group has-feedback"
-				});
-				var div = $("<div/>",{
-					class : "col-md-"+(isEmpty(thisElement.data("heum-label"))?"12":"10")
-				});
-				var feed = $("<span/>",{
-					class : "heum-validation-feed glyphicon form-control-feedback"
-				});
-				var validationText = $("<span/>",{
-					class : "heum-validation-text control-label"
-				});
-				var validationValue = $("<input/>",{
-					class : "heum-validation-value",
-					type : "hidden",
-					value : !parseBoolean(thisElement.data("heum-validation"))
-				});
-				if(thisElement.attr("type")!="checkbox"&&thisElement.attr("type")!="radio"){
-					thisElement.wrap(div).parent("div").append(feed,validationText,validationValue);
-					thisElement.parent("div").wrap(divGroup);
-					if(!isEmpty(thisElement.data("heum-label"))){
-						thisElement.parents("div.heum-validation-group").prepend(label);
-					}
-				}else{
-					if($("input[name="+thisElement.attr("name")+"]").index(thisElement)==0){
-						$("input[name="+thisElement.attr("name")+"]").wrapAll(div).parent("div").append(validationText,validationValue);
-						thisElement.parent("div").wrap(divGroup);
-						var groupLabel = $("<label/>",{
-							class : "col-md-2 control-label",
-							text : thisElement.data("heum-group-label"),
-							css : {
-								"font-weight" : "bold"
-							}
-						});
-						thisElement.parents(".heum-validation-group").find(".heum-validation-text").wrap("<div/>");
-						thisElement.parents(".heum-validation-group").prepend(groupLabel);
-						if(!parseBoolean(thisElement.data("heum-vertical"))){
-							if(!thisElement.parents(".heum-validation-group").hasClass(thisElement.attr("type"))){
-								thisElement.parents(".heum-validation-group").addClass(thisElement.attr("type"));
-							}
-						}else{
-							if(!thisElement.parents(".heum-validation-group").hasClass("vertical")){
-								thisElement.parents(".heum-validation-group").addClass("vertical");
-							}
-						}
-					}
-					label = $("<label/>",{
-						class : "control-label",
-						"for" : thisElement.attr("id")
-					});
-					thisElement.wrap(label);
-					if(!thisElement.parents(".heum-validation-group").hasClass("vertical")){
-						thisElement.parent("label").append(thisElement.data("heum-label"));
-					}else{
-						thisElement.parent("label").append(thisElement.data("heum-label")).wrap($("<label/>",{
-							class : thisElement.attr("type")
-						}));
-					}
+			var defaults = defaults,element = $(this.element),options = this.options;
+			$("[data-null],[data-min-length],[data-max-length],[data-number],form [data-email],[data-phone],[data-url]").on("click focus",function(){
+				var element = $(this);
+				if($(this).attr("type")=="checkbox"||$(this).attr("type")=="radio"){
+					element = $("input[name="+$(this).attr("name")+"]:"+$(this).attr("type"))
 				}
-				if(thisElement.attr("type")!="checkbox"&&thisElement.attr("type")!="radio"){
-					thisElement.keyup(function(){
-						validations(thisElement);
-					});
-				}else{
-					thisElement.change(function(){
-						var elementOption = {
-							validationGroup : thisElement.parents("div.heum-validation-group"),
-							validationValue : thisElement.parents("div.heum-validation-group").find(".heum-validation-value"),
-							validationText : thisElement.parents("div.heum-validation-group").find(".heum-validation-text"),
-							validationFeed : thisElement.parents("div.heum-validation-group").find(".heum-validation-feed")
-						};
-						changeView(elementOption,"default","");
-						elementOption.validationValue.val(false);
-					});
-				}
+				$(element).removeClass("form-has-error");
+				$(element).tooltip("destroy");
 			});
-			element.find("*[type=reset]").on("click touchend",function(event){
-				eventHandler(event, $(this));
-				element.find("input[type=checkbox],input[type=radio]").prop("checked",false);
-				element.heumValidation().reset();
-			});
-			element.submit(function(){
-				element.find("button,a").button("loading");
-				var error=false;
-				element.find("input:visible,textarea:visible").each(function(){
-					if($(this).attr("type")=="checkbox"||$(this).attr("type")=="radio"){
-						if($("input[name="+$(this).attr("name")+"]").index($(this))==0){
-							validations($(this));
-						}
-					}else{
-						validations($(this));
+			$(element).submit(function(event){
+				if($(this).data("auto-validation")||$(this).data("auto-validation")==undefined){
+					var result = validation($(this));
+					if(!result){
+						alert("입력 값들을 다시 한번 확인해주세요");
+						event.preventDefault();
 					}
-				});
-				element.find(".heum-validation-value").each(function(){
-					if(!parseBoolean($(this).val())){
-						error = true;
-						return false;
-					}
-				});
-				if(error){
-					element.find("button,a").button("reset");
-					toastr.clear();
-					toastr.error("값을 제대로 입력해주시길 바랍니다");
-					return false;
+					return result;
 				}
 			});
 		}
@@ -337,39 +264,7 @@
 			} else {
 				$.fn.extend({
 					reset : function(){
-						$(this).find(".heum-validation").val(false);
-						$(this).find(".has-error").removeClass("has-error");
-						$(this).find(".has-success").removeClass("has-success");
-						$(this).find(".has-warning").removeClass("has-warning");
-						$(this).find(".glyphicon-remove").removeClass("glyphicon-remove");
-						$(this).find(".glyphicon-ok").removeClass("glyphicon-ok");
-						$(this).find(".glyphicon-warning-sign").removeClass("glyphicon-warning-sign");
-						$(this).find(".heum-validation-text").text("");
-						$(this).find("input:not(input[type=radio],input[type=checkbox]):visible,textarea:visible").val("");
-					},
-					parseBoolean : function(element){
-						return parseBoolean($(element).val());
-					},
-					emailValidation : function(element){
-						return emailValidation($(element).val());
-					},
-					phoneValidation : function(element){
-						return phoneValidation($(element).val());
-					},
-					changeView : function(element,division,text){
-						var elementOption = {
-							validationGroup : $(element).parents("div.heum-validation-group"),
-							validationValue : $(element).parents("div.heum-validation-group").find(".heum-validation-value"),
-							validationText : $(element).parents("div.heum-validation-group").find(".heum-validation-text"),
-							validationFeed : $(element).parents("div.heum-validation-group").find(".heum-validation-feed")
-						};
-						changeView(elementOption,division,text);
-					},
-					isEmpty : function(element){
-						return isEmpty($(element).val());
-					},
-					validations : function(element){
-						heumValidations($(element));
+						return false;
 					}
 				});
 			}
