@@ -14,20 +14,51 @@ $(document).ready(function(){
 
 ```
 ```html
-<form>
-  <input type="email" id="email" class="form-control" data-heum-min="2" data-heum-max="20" data-heum-null="false" data-heum-label="이메일"/>
-  <input type="text" id="text" class="form-control" data-heum-min="2" data-heum-max="12" data-heum-null="false" data-heum-number="true" data-heum-label="숫자"/>
-  <input type="tel" class="form-control" data-heum-null="false" data-heum-label="연락처"/>
-  <input type="text" class="form-control" data-heum-validation="false" data-heum-label="검사안함"/>
-  <input type="checkbox" name="checkbox" data-heum-min="1" data-heum-null="false" data-heum-label="체크1" data-heum-group-label="체크박스"/>
-  <input type="checkbox" name="checkbox" data-heum-label="체크2"/>
-  <input type="radio" name="radio" data-heum-label="라디오1" data-heum-group-label="라디오박스"/>
-  <input type="radio" name="radio" data-heum-label="라디오2"/>
-  <div class="form-group pull-right">
-    <div class="btn-group">
-      <button type="submit" class="btn btn-primary">전송</button>
-      <button type="reset" class="btn btn-warning">초기화</button>
-    </div>
-  </div>
+<form style="margin-bottom: 50px;">
+	<label>min-length</label>
+	<input type="text" class="form-control" data-min-length="5"/>
+	<label>max-length</label>
+	<input type="text" class="form-control" data-max-length="5"/>
+	<label>null</label>
+	<input type="text" class="form-control" data-null="false"/>
+	<label>number</label>
+	<input type="number" class="form-control" data-number="true"/>
+	<label>email</label>
+	<input type="email" class="form-control" data-email="true"/>
+	<label>phone</label>
+	<input type="tel" class="form-control" data-phone="true"/>
+	<label>url</label>
+	<input type="url" class="form-control" data-url="true"/>
+	<label>pattern</label>
+	<input type="text" class="form-control" data-pattern="[a-zA-Z]" data-message="영어만 작성해주세요"/>
+	<label>checkbox</label>
+	<br/>
+	<label>
+		<input type="checkbox" name="checkbox" data-null="false" data-min-length="2" data-max-length="3"/>체크
+	</label>
+	<label>
+		<input type="checkbox" name="checkbox" data-null="false" data-min-length="2" data-max-length="3"/>체크
+	</label>
+	<label>
+		<input type="checkbox" name="checkbox" data-null="false" data-min-length="2" data-max-length="3"/>체크
+	</label>
+	<label>
+		<input type="checkbox" name="checkbox" data-null="false" data-min-length="2" data-max-length="3"/>체크
+	</label>
+	<br/>
+	<label>radio</label>
+	<br/>
+	<label>
+		<input type="radio" name="radio" data-null="false"/>라디오
+	</label>
+	<label>
+		<input type="radio" name="radio" data-null="false"/>라디오
+	</label>
+	<div class="form-group pull-right" style="padding: 20px;">
+		<div class="btn-group">
+			<button type="submit" class="btn btn-primary">전송</button>
+			<button type="reset" class="btn btn-warning">초기화</button>
+		</div>
+	</div>
 </form>
 ```
